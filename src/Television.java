@@ -14,7 +14,7 @@ public class Television extends Electrodomestico {
         sintonizadorTDT = false;
     }
 
-    public Television(String modelo,double precioB,String color,Character consumoE,int peso,int resolucion,boolean sintonizadorTDT){
+    public Television(String modelo,double precioB,String color,Character consumoE,double peso,int resolucion,boolean sintonizadorTDT){
         super(modelo, precioB, color, consumoE, peso);
         this.resolucion = resolucion;
         this.sintonizadorTDT = sintonizadorTDT;
@@ -66,6 +66,18 @@ public class Television extends Electrodomestico {
 
     private void setSintonizadorTDT(boolean sintonizadorTDT) {
         this.sintonizadorTDT = sintonizadorTDT;
+    }
+
+    public static Television fromText(String text) {//Tiene que ser hederado de la superclase
+        String[] parts = text.split(",");
+        String modelo = parts[0];
+        double precioB = Double.parseDouble(parts[1]);
+        String color = parts[2];
+        Character consumoE = parts[3].charAt(0);
+        double peso = Double.parseDouble(parts[4]);
+        int resolucion = Integer.parseInt(parts[5]);
+        boolean sintonizadorTDT = Boolean.parseBoolean(parts[6]);
+        return new Television(modelo, precioB, color, consumoE, peso, resolucion, sintonizadorTDT);
     }
 
 

@@ -13,7 +13,7 @@ public class Lavadora extends Electrodomestico implements Serializable{
     }
 
 
-    public Lavadora(String modelo,double precioB,String color,Character consumoE,int peso,int carga){
+    public Lavadora(String modelo,double precioB,String color,Character consumoE,double peso,int carga){
         super(modelo, precioB, color, consumoE, peso);
         this.carga = 5;
     }
@@ -70,13 +70,13 @@ public class Lavadora extends Electrodomestico implements Serializable{
     }
 
 
-    public static Lavadora fromText(String text) {
+    public static Lavadora fromText(String text) {//Esto deberia ser hederado de la superclase
         String[] parts = text.split(",");
         String modelo = parts[0];
         double precioB = Double.parseDouble(parts[1]);
         String color = parts[2];
         Character consumoE = parts[3].charAt(0);
-        int peso = Integer.parseInt(parts[4]);
+        double peso = Double.parseDouble(parts[4]);
         int carga = Integer.parseInt(parts[5]);
         return new Lavadora(modelo, precioB, color, consumoE, peso, carga);
     }

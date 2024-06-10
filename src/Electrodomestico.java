@@ -19,42 +19,41 @@ public abstract class Electrodomestico implements Serializable{
     public Electrodomestico(){
         modelo = "Desconocido";
         precioBase = 100;
+        color = "blanco";
         consumoE = 'F';
         peso = 5;
-        color = "blanco";
         totalElectrodomestico ++;
     }
 
     public Electrodomestico(double precioBase, int peso){
+        modelo = "Desconocido";
         //sobrecarga ya que esta repetido
         this.precioBase = precioBase;
+        color = "blanco";
         this.peso = peso;
         //Valores por defecto
-        modelo = "Desconocido";
         consumoE = 'F';
-        color = "blanco";
         totalElectrodomestico ++;
     }
 
-    public Electrodomestico(String modelo, double precioBase, String color,char consumoE, double peso){
+    public Electrodomestico(String modelo, double precioBase, String color, char consumoE, double peso){
         this.modelo = modelo;
         this.precioBase = precioBase;
-        comprobarColor(color);
-        comprobarConsumo(consumoE);
+        this.color = comprobarColor(color);
+        this.consumoE = comprobarConsumo(consumoE);
         this.peso = peso;
         totalElectrodomestico ++;
     }
     
-    private void comprobarConsumo(char letra) {
+    private char comprobarConsumo(char letra) {
         if (letra < 'A' || letra > 'F')                             
-            consumoE = 'F';
+            return consumoE = 'F';
         else
-            consumoE = letra;
+            return consumoE = letra;
     }
 
-    private void comprobarColor(String color){
+    private String comprobarColor(String color){
         color.toLowerCase();
-        color = "blanco";
         if(color.equals("negro")){
             color = "negro";
         }else if(color.equals("rojo")){
@@ -63,7 +62,11 @@ public abstract class Electrodomestico implements Serializable{
             color = "azul";
         }else if(color.equals("gris")){
             color = "gris";
+        }else{
+            color = "blanco";
         }
+
+        return color;
     }
 
     public final double incrementoPrecio(){//No sera sobreescrito por una subclase

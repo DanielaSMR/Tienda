@@ -1,3 +1,4 @@
+import java.beans.Statement;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -8,7 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,7 +53,7 @@ public class GestionElec {
         //          throw new ElecException("No se pudo crear el electrodomestico");
         //      }
         electrodomesticos.add(new Lavadora("Lav", 20, "negro", 'B', 60, 20));
-        electrodomesticos.add(new Lavadora("Lav", 20, "negro", 'B', 60, 20));
+        electrodomesticos.add(new Television("Tel", 20, "negro", 'B', 60, 20, true));
 
         // System.out.println(Lavadora.equals(lav1, lav2));
     }
@@ -198,37 +203,47 @@ public class GestionElec {
     }
 
     // Ficheros binarios
-    public static void guardarBinario(ArrayList<Electrodomestico> electrodomesticos, String archivo)throws FileNotFoundException, IOException{
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))){
-            oos.writeObject(electrodomesticos);
+    public static void guardarBinario(String nombreFichero) throws FileNotFoundException, IOException{
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nombreFichero))){
+            oos.writeObject(Main.electrodomesticos);
+            System.out.println("Empleados serializados correctamente");
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
-
     }
 
-    public static void cargarBinario(ArrayList<Electrodomestico> electrodomesticos, String archivo)throws IOException, ClassNotFoundException{
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
-            electrodomesticos = (ArrayList<Electrodomestico>) ois.readObject();
+    public static void cargarBinario(String nombreFichero) throws FileNotFoundException, IOException{
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nombreFichero))) {
+            Main.electrodomesticos = (ArrayList<Electrodomestico>) ois.readObject();
+            System.out.println("Empleados deserializados correctamente");
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
-        
     }
 
+    // Ficheros texto
     public static void guardarTexto(ArrayList<Electrodomestico> electrodomesticos, String archivo)throws FileNotFoundException, IOException{
-         try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
-            for (Electrodomestico elec : electrodomesticos) {
-                writer.write(elec.toText());
-                writer.newLine();
-            }
-        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
+           for (Electrodomestico elec : electrodomesticos) {
+               writer.write(elec.toText());
+               writer.newLine();
+           }
+       }
     }
 
-    public static void cargarTexto(ArrayList<Electrodomestico> electrodomesticos, String archivo) throws IOException{
-        //En el caso de borrar todo el array y cargarlo
-        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+    public static void cargarTexto(ArrayList<Electrodomestico> electrodomesticos, String nombreArchivo) throws IOException {
+        //En el caso de borrar el arraylist completo y mejorable 
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String line;
             electrodomesticos.clear();
             while ((line = reader.readLine()) != null) {
-                Electrodomestico electrodomestico = Lavadora.fromText(line); // Aquí asumo que solo hay Lavadoras
-                electrodomesticos.add(electrodomestico);
+                String[] parts = line.split(",");
+                String tipo = parts[0];
+                if (tipo.equals("Lav")) {
+                    electrodomesticos.add(Lavadora.fromText(line));
+                }else if(tipo.equals("Tel")){
+                    electrodomesticos.add(Television.fromText(line));
+                }
             }
         }
     }

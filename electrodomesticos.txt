@@ -1,0 +1,8 @@
+Lav,20.0,negro,C,60.0,5
+Desconocido,23.0,blanco,F,34.0,0
+Tel,80.0,blanco,F,45.0,60,true
+Desconocido,44.0,blanco,F,33.0,20,false
+Desconocido,100.0,blanco,F,5.0,0
+Desconocido,100.0,blanco,F,5.0,20,false
+Lav,20.0,negro,B,60.0,5
+Tel,20.0,negro,B,60.0,20,true

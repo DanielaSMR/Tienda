@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Main {
@@ -10,6 +13,23 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Electrodomestico.rellenarLetras();
         
+         
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al registrar el driver de PostgreSQL: " + ex);
+        }
+
+        Connection connection = null;
+        // Database connect
+        // Conectamos con la base de datos
+        //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mati2", "mati", "mati");
+        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/practica", "postgres", "1234");
+        Statement st = connection.createStatement();
+        connection.setAutoCommit(false);
+
+
+
 
         int eleccion;
         // Estructuras de control(for/while)
@@ -79,24 +99,25 @@ public class Main {
                     GestionElec.mostrarPrecios(electrodomesticos);
                     break;        
                 case 9:
-                    GestionElec.guardarBinario(electrodomesticos, ELECTRODOMESTICOS_ARCHIVO_BINARIO);
+                    GestionElec.guardarBinario(ELECTRODOMESTICOS_ARCHIVO_BINARIO);
+                    break;
                 case 10:
-                    GestionElec.cargarBinario(electrodomesticos, ELECTRODOMESTICOS_ARCHIVO_BINARIO);
+                    GestionElec.cargarBinario(ELECTRODOMESTICOS_ARCHIVO_BINARIO);
+                    break;
                 case 11:
-                    GestionElec.guardarTexto(electrodomesticos, ELECTRODOMESTICOS_ARCHIVO_BINARIO);
+                    GestionElec.guardarTexto(electrodomesticos, ELECTRODOMESTICOS_ARCHIVO_TEXTO);
+                    break;
                 case 12:
                     GestionElec.cargarTexto(electrodomesticos, ELECTRODOMESTICOS_ARCHIVO_TEXTO);
+                    break;
                 case 13:
-
-                case 14:
-
-                case 15:
-                    
+                    System.out.println("Saliendo...");
+                    break;
                 default:
                     System.out.println("No existe esa opcion");
                     break;
             }
-        }while(eleccion != 9);
+        }while(eleccion != 13);
        
     }
 }
