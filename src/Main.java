@@ -13,23 +13,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Electrodomestico.rellenarLetras();
         
-         
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al registrar el driver de PostgreSQL: " + ex);
-        }
-
-        Connection connection = null;
-        // Database connect
-        // Conectamos con la base de datos
-        //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mati2", "mati", "mati");
-        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/practica", "postgres", "1234");
-        Statement st = connection.createStatement();
-        connection.setAutoCommit(false);
-
-
-
 
         int eleccion;
         // Estructuras de control(for/while)
