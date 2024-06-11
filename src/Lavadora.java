@@ -15,7 +15,7 @@ public class Lavadora extends Electrodomestico implements Serializable{
 
     public Lavadora(String modelo,double precioB,String color,Character consumoE,double peso,int carga){
         super(modelo, precioB, color, consumoE, peso);
-        this.carga = 5;
+        this.carga = carga;
     }
 
     public Lavadora(Lavadora lav) throws PrecioInvalidoException{//El constructor de copia
@@ -91,7 +91,7 @@ public class Lavadora extends Electrodomestico implements Serializable{
 
     @Override
     public double getPrecioFinal() {
-        double resultado = getPrecioBase() + incrementoPrecio();
+        double resultado = this.incrementoPrecio();
        if(carga > 30){
             resultado += 50;
        }

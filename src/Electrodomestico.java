@@ -70,12 +70,12 @@ public abstract class Electrodomestico implements Serializable{
     }
 
     public final double incrementoPrecio(){//No sera sobreescrito por una subclase
-        double resultado = precios.get(consumoE);
-        if(peso >= 0 || peso <= 19){
+        double resultado = precios.get(consumoE) + this.getPrecioBase();
+        if(peso >= 0 && peso <= 19){
             resultado += 10;
-        }else if(peso >=20 || peso <= 49){
+        }else if(peso >=20 && peso <= 49){
             resultado += 50;
-        }else if(peso >= 50 || peso <= 79){
+        }else if(peso >= 50 && peso <= 79){
             resultado += 80;
         }else if(peso > 80){
             resultado += 100;

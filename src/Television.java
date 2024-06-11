@@ -32,7 +32,7 @@ public class Television extends Electrodomestico {
 
     @Override
     public double getPrecioFinal(){
-        double resultado = getPrecioBase() + incrementoPrecio();
+        double resultado = this.incrementoPrecio();
        if(resolucion > 40){
             resultado = (resultado * 130)/100;
        }

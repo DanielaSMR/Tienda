@@ -20,14 +20,15 @@ import java.util.List;
 public class GestionElec {
     
     public static void añadirElec(ArrayList<Electrodomestico> electrodomesticos) throws Exception{
-        String consum = "C";
-        char c = consum.charAt(0);
-        electrodomesticos.add(new Lavadora("Lav", 20, "negro", c, 60, 20));
-        electrodomesticos.add(new Lavadora(23, 34));
-        electrodomesticos.add(new Television("Tel", 80, "verde", 'G', 45, 60, true));
-        electrodomesticos.add(new Television(44,33));
-        electrodomesticos.add(new Lavadora());
-        electrodomesticos.add(new Television());
+        // String consum = "C";
+        // char c = consum.charAt(0);
+        // electrodomesticos.add(new Lavadora("Lav", 20, "negro", c, 60, 20));
+        // electrodomesticos.add(new Lavadora(23, 34));
+        // electrodomesticos.add(new Television("Tel", 80, "verde", 'G', 45, 60, true));
+        // electrodomesticos.add(new Television(44,33));
+        // electrodomesticos.add(new Lavadora());
+        // electrodomesticos.add(new Television());
+        electrodomesticos.add(new Lavadora("Lav1", 120, "gris", 'A', 50, 35));
 
 
         // String modelo = IO.pedirTexto();
@@ -52,8 +53,8 @@ public class GestionElec {
         //      if(!creado){
         //          throw new ElecException("No se pudo crear el electrodomestico");
         //      }
-        electrodomesticos.add(new Lavadora("Lav", 20, "negro", 'B', 60, 20));
-        electrodomesticos.add(new Television("Tel", 20, "negro", 'B', 60, 20, true));
+        //electrodomesticos.add(new Lavadora("Lav", 20, "negro", 'B', 60, 20));
+        //electrodomesticos.add(new Television("Tel", 20, "negro", 'B', 60, 20, true));
 
         // System.out.println(Lavadora.equals(lav1, lav2));
     }
@@ -192,12 +193,12 @@ public class GestionElec {
     public static void mostrarPrecios(ArrayList<Electrodomestico> electrodomesticos){
         for(Electrodomestico elec : electrodomesticos){
             if(elec instanceof Television){
-                System.out.println("El precio de" + elec.getModelo() + " es: " + elec.getPrecioFinal());
+                System.out.println("El precio de" + elec.getModelo() + " es:  " + ((Television)elec).getPrecioFinal());
             }
         }
         for(Electrodomestico elec : electrodomesticos){
             if(elec instanceof Lavadora){
-                System.out.println("El precio de" + elec.getModelo() + " es: " + elec.getPrecioFinal());
+                System.out.println("El precio de" + elec.getModelo() + " es: " +  ((Lavadora)elec).getPrecioFinal());
             }
         }
     }
